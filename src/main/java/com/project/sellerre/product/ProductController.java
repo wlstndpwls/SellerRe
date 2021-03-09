@@ -88,7 +88,6 @@ public class ProductController {
 	
 	@RequestMapping(value = "/product/productDetail")
 	   public ModelAndView productDetail(@RequestParam(value = "user_id") String user_id, @RequestParam(value = "product_num")int product_num) {
-	      System.out.println("productDetail 컨트롤러 : " + product_num + " " + user_id );
 	      ModelAndView mav = new ModelAndView("/product/product_detail");
 	      
 	      Product p = product_Service.selectProductByNum(product_num);

@@ -167,12 +167,6 @@
                                ${wishCount[status.index] }
                             </div>
                         </div> 
-
-                        <!-- 짬하기 후 상태-->
-<!--                         <div class="wish_container"> -->
-<%--                             <img src="${pageContext.request.contextPath }/assets/img/wish1.png" /> --%>
-<%--                          <input type="hidden" class="product_num" name="product_num" value="${i.product_num }" /> --%>
-<!--                         </div> -->
                   </div>
       
          
