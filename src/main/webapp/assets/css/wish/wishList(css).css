@@ -1,0 +1,181 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background-color: #F2FFEC;
+}
+
+
+/* 상품 리스트 컨테이너 */
+
+.product_list_container {
+    border: 1px solid black;
+    background-color: white;
+    margin: auto;
+    width: 70%;
+    height: 1000px;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+    border-radius: 20px;
+}
+
+.wish_product_font_area {
+    /* border: 1px solid blue; */
+    width: 70%;
+    margin-top: 10rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15rem;
+}
+
+.wish_font {
+    /* border: 1px solid red; */
+    width: 80%;
+    margin: auto;
+    font-size: 5rem;
+    font-weight: 700;
+}
+
+
+/* 상품이 없을 때 컨테이너 */
+
+.empty_wish_product_container {
+    /* border: 1px solid red; */
+    width: 10%;
+    margin: auto;
+}
+
+.empty_font {
+    /* border: 1px solid red; */
+    width: 40%;
+    margin: auto;
+    font-size: 5rem;
+}
+
+
+/* 상품 있을 때 컨테이너 */
+
+.wish_product_container {
+    /* border: 1px solid red; */
+    display: flex;
+    width: 70%;
+    margin-top: 15rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 7rem;
+}
+
+
+/* 상품 리스트 이미지 크기 */
+
+.product_img {
+    /* border: 1px solid orange; */
+    width: 20rem;
+    height: 20rem;
+    margin: 0 5rem 0 0;
+}
+
+
+/* 상품 정보 영역 */
+
+.product_info_area {
+    /* border: 1px solid yellow; */
+    margin: 0 3rem 0 0;
+}
+
+
+/* 상품 이름 영역 */
+
+.wish_product_name_container {
+    /* border: 1px solid green; */
+    font-size: 4rem;
+    font-weight: 600;
+    margin: 1rem 0 1rem 0;
+    /* margin: 0 3rem 0 0; */
+}
+
+
+/* 상품 가격 영역 */
+
+.wish_product_price_container {
+    /* border: 1px solid blue; */
+    font-size: 3.5rem;
+    margin: 1rem 0 1rem 0;
+}
+
+
+/* 상품 정보 영역 */
+
+.wish_product_info_container {
+    /* border: 1px solid navy; */
+    font-size: 3rem;
+    margin: 1rem 0 1rem 0;
+}
+
+
+/* 상품 카테고리 영역 */
+
+.wish_product_category_container {
+    /* border: 1px solid brown; */
+    font-size: 2rem;
+    margin: 1rem 0 1rem 0;
+}
+
+
+/* 상품 찜 이미지 영역 */
+
+.wish_product_img_area {
+    /* border: 1px solid midnightblue; */
+    display: flex;
+    align-items: center;
+    margin: 3rem 0 3rem 10rem;
+}
+
+
+/* 찜 갯수 영역 */
+
+.wish_product_count {
+    /* border: 1px solid red; */
+    margin: 0 0 0 2rem;
+}
+
+
+/* a링크 영역 */
+
+.wish_product_list {
+    text-decoration: none;
+    color: black;
+}
+
+
+/* 상품 댓글 영역 */
+
+.wish_product_reply_container {
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    margin: 3rem 0 3rem 10rem;
+}
+
+
+/* 댓글 이미지 영역 */
+
+.wish_product_reply_area {
+    /* border: 1px solid saddlebrown; */
+}
+
+
+/* 댓글 갯수 영역 */
+
+.wish_product_reply_count {
+    margin: 0 0 0 2rem;
+}
+
+hr {
+    width: 80%;
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+}
