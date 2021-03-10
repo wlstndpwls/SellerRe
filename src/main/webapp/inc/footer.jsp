@@ -18,7 +18,6 @@
 
                 <!-- 로고 -->
                 <div class="footer_contents_div" id="footer_left_logo_div">
-                    <img src="img/main_logo/logo_3.png" alt="" id="footer_logo_img">
                 </div>
 
                 <!-- 텍스트 -->

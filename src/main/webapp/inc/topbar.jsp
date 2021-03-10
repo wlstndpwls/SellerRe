@@ -29,11 +29,9 @@
         		<c:if test="${sessionScope.user_type == 2 }">
 	                <li><a class="list" href="/admin/adminMain?user_id=${sessionScope.user_id}"> ${sessionScope.user_nickname}님 </a></li>
         		</c:if>
-<%-- 	                <li><a href="${pageContext.request.contextPath }/user/userEdit"> 내 정보수정 </a></li> --%>
 	                <li><a class="list"  href="${pageContext.request.contextPath }/user/logout" onClick="alert('로그아웃 되었습니다')"> 로그아웃 </a></li>
 	                <li><a class="list" href="${pageContext.request.contextPath }/wish/wishList?user_id=${sessionScope.user_id}"> 찜 목록 </a></li>
-	                <li><a class="list" href="${pageContext.request.contextPath }/product/product_add"> 상품등록 </a>
-	                <li><a class="list" href="${pageContext.request.contextPath }/product/product_list"> 상품리스트 </a></li>
+	                <li><a class="list" href="${pageContext.request.contextPath }/product/product_add"> 상품등록 </a></li>
                 </ul>
         	</c:if>
         </div>
@@ -63,7 +61,7 @@
 
             <!-- 게시판 링크 1 -->
             <a href="${pageContext.request.contextPath }/notice/notice_board" class="top_menu_board_item">
-                <img src="${pageContext.request.contextPath }/assets/img/main_board/b_1.png" alt="아이콘 사진" class="top_menu_board_img">
+                <img src="${pageContext.request.contextPath }/assets/img/main_board/notice.png" alt="아이콘 사진" class="top_menu_board_img">
             </a>
 
             <!-- 게시판 링크 2 -->

@@ -158,15 +158,15 @@
                          </a>
                        </div>
 
-                        <!-- 찜하기 안했을 때의 상태-->
+                        <!-- 찜 한 사람 수 -->
                         <div class="wish_container">
                            <a class="prod_detail_link" href="${pageContext.request.contextPath }/product/productDetail?user_id=${sessionScope.user_id }&product_num=${i.product_num}" >
                                <img src="${pageContext.request.contextPath }/assets/img/wish_0.png" /> 
                             </a>
                             <div class="wish_count_area">
-                               ${wishCount[status.index] }
+                               <span>${wishCount[status.index] }</span>
                             </div>
-                        </div> 
+                        </div>
                   </div>
       
          
