@@ -24,9 +24,6 @@ public class WishController {
    private WishService wish_service;
 
    @Autowired
-   private ProductService product_service;
-
-   @Autowired
    private AdminService admin_Service;
    
    @Autowired
@@ -34,9 +31,7 @@ public class WishController {
    
    // 찜하기
    @RequestMapping(value = "/wish/wishInsert")
-   public ModelAndView wishInsert(@RequestParam(value = "user_id") String user_id,
-         @RequestParam(value = "product_num") int product_num) {
-      System.out.println("wishInsert : " + user_id + " " + product_num);
+   public ModelAndView wishInsert(@RequestParam(value = "user_id") String user_id, @RequestParam(value = "product_num") int product_num) {
       ModelAndView mav = new ModelAndView("/wish/wishJSON");
       Wish w = new Wish();
 
@@ -73,13 +68,10 @@ public class WishController {
       return mav;
    }
    
-   
-   
    // 위시리스트에 출력
    @RequestMapping(value = "/wish/wishList")
    public ModelAndView wish(@RequestParam(value = "user_id") String user_id) {
       ModelAndView mav = new ModelAndView("wish/wishList");
-      System.out.println("wishList 컨트롤러 : " + user_id);
       // 세션 아이디를 가져와서 프로덕트 넘버를 호출하고 호출한 프로덕트 넘버로 P서비스에서 불러온다
       ArrayList<Product> wishList = (ArrayList<Product>) wish_service.selectByUserId(user_id);
       Product p = null;
@@ -99,15 +91,12 @@ public class WishController {
       try {
     	  for (int i = 0; i < wishList.size(); i++) {
     		  p = wishList.get(i);
-    		  System.out.println("위시출력 컨트롤 / p / get(i) : " + p);
     		  // 찜회수 가져오기
     		  wishCount = wish_service.countUserIdByProductNum(p.getProduct_num());
     		  wishCountList.add(wishCount);
-    		  System.out.println("위시출력 컨트롤 / wishCount : " + wishCount);
     		  // 댓글 가져오기
     		  reviewCount = review_service.countReviewUserIdByProductNum(p.getProduct_num());
     		  reviewCountList.add(reviewCount);
-    		  System.out.println("위시출력 컨트롤 / reviewCount : " + reviewCount);
     		  // 사진 가져오기
     		  path = basePath + p.getProduct_num() + "\\";
     		  File imgDir = new File(path);
@@ -128,9 +117,6 @@ public class WishController {
     	  e.printStackTrace();
       }
       // 사진, 위시상품, 카테고리1/2/3, wishCount
-      System.out.println("wishList 컨트롤러, wishList : " + wishList);
-      System.out.println("wishList 컨트롤러, reviewCountList : " + reviewCountList);
-      System.out.println("wishList 컨트롤러, wishCountList : " + wishCountList);
       mav.addObject("wishList", wishList);
       mav.addObject("c1", c1);
 	  mav.addObject("c2", c2);

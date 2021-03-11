@@ -50,18 +50,12 @@
    </select>
    
    
-   
    <delete id="deleteWish" parameterType="java.util.Map">
       DELETE
       FROM   sellerre_wish
       WHERE   product_num = #{product_num} AND user_id = #{user_id}
    </delete>
    
-   <delete id="deleteAllWish" parameterType="String">
-      DELETE
-      FROM   sellerre_wish
-      WHERE   user_id = #{user_id}
-   </delete>
    
    <!-- 제품 삭제 시 찜 목록까지 삭제 -->
    <delete id="deleteProductAndWish" parameterType="int">

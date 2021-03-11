@@ -40,7 +40,7 @@ public class ProductService {
 		return mapper.selectProductByPrice(map);
 	}
 	
-public List selectProductByPriceAndName(String name, int min, int max) {
+	public List selectProductByPriceAndName(String name, int min, int max) {
 		
 		Map map = new HashMap();
 		map.put("name", name);

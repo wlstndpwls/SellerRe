@@ -23,9 +23,6 @@ public interface WishMapper {
       // 선택 삭제   // 세션아이디를 비교해서 productnum을 삭제
       void deleteWish(Map map);
       
-      // 전체 삭제
-      void deleteAllWish(String user_id);
-      
       Wish selectByUserIdProductNum(Map map);
       
       void deleteProductAndWish(int product_num);

@@ -304,109 +304,6 @@ ArrayList<Review> reviewList = (ArrayList<Review>) review_Service.selectReviewBy
 		
 	}
 	
-
-	
-	/**
-	    * 가격으로 상품 검색하기
-	    * @param min - 최소가격
-	    * @param max - 최대가격
-	    * @return - ModelAndView
-	    */
-	   @RequestMapping(value = "product/selectProductByPrice")
-	   public ModelAndView selectProductByPrice(@RequestParam(value = "user_id") String user_id, @RequestParam(value = "searchKeyword")String searchKeyword, @RequestParam(value = "categoryName")String categoryName, @RequestParam(value = "min") String min, @RequestParam(value = "max") String max) {
-	      ModelAndView mav = new ModelAndView("/product/product_list");
-	      Product p = null;
-	      int count = 0;
-	       ArrayList<Integer> wishCount = new ArrayList<Integer>();
-	       ArrayList<Product> allProdList = new ArrayList<Product>();
-	       int minNumber;
-	       int maxNumber;
-	       if (min == null || min == "") {
-	    	  min = "0";
-	    	  minNumber = Integer.parseInt(min);
-	    	  System.out.println("if minNumber : " + minNumber);
-	       }
-	       
-	       if (max == null || max == "") {
-	    	  max = "2147483647";
-	    	  maxNumber = Integer.parseInt(max);
-	    	  System.out.println("if maxNumber : " + maxNumber);
-	       }
-	       minNumber = Integer.parseInt(min);
-	       maxNumber = Integer.parseInt(max);
-	       System.out.println("minNumber : " + minNumber);
-	       System.out.println("maxNumber : " + maxNumber);
-	       
-	        if(categoryName != "") {
-	           allProdList = (ArrayList<Product>) product_Service.selectProductByPriceAndCategoryName(categoryName, minNumber, maxNumber);
-	           for (int i = 0; i < allProdList.size(); i++) {
-	              p = allProdList.get(i);
-	              count = wish_Service.countUserIdByProductNum(p.getProduct_num());
-	              wishCount.add(count); 
-	           }
-	           
-	        }else{
-	           allProdList = (ArrayList<Product>) product_Service.selectProductByPriceAndName(searchKeyword, minNumber, maxNumber);
-	           for (int i = 0; i < allProdList.size(); i++) {
-	              p = allProdList.get(i);
-	              count = wish_Service.countUserIdByProductNum(p.getProduct_num());
-	              wishCount.add(count); 
-	           }
-	        }
-	       
-	       /* 카테고리 가져오기 */
-	         ArrayList<Category> c1 = new ArrayList<Category>(); 
-	         ArrayList<Category> c2 = new ArrayList<Category>(); 
-	         ArrayList<Category> c3 = new ArrayList<Category>();
-	         
-	         if (user_id != "") {
-	            User u = user_Service.checkUserId(user_id);
-	         
-	             if (u.getUser_type() == 2) {
-	               if(allProdList.isEmpty()) {
-	                  System.out.println("list 비었음");
-	                  allProdList.add(new Product(0, "", 0, "", 0, 0, 0, "", null, 0, 0));
-	               }
-	               System.out.println("서치키워드 컨트롤러3333333" + allProdList);
-	               mav.setViewName("/admin/productJSON");
-	               mav.addObject("allProdList", allProdList);
-	            }
-	         }
-	         /* 등록된 이미지 가져오기 */
-	           ArrayList<String> fileList = new ArrayList<String>();
-	           String path = "";
-	        
-	           for (int i = 0; i < allProdList.size(); i++) {
-	              p = allProdList.get(i);
-	              path = basePath + p.getProduct_num() + "\\";
-	              File imgDir = new File(path);
-	              mav.addObject("path" + i, path);
-	              
-	              if (imgDir.exists()) {
-	                 String[] files = imgDir.list();
-	                 fileList.add(files[0]);
-	           }
-	           
-	           Category category1 = admin_Service.selectCategory(allProdList.get(i).getCategory1_num(), 1);
-	           c1.add(category1);
-	           
-	           Category category2 = admin_Service.selectCategory(allProdList.get(i).getCategory2_num(), 2);
-	           c2.add(category2);
-	           
-	           Category category3 = admin_Service.selectCategory(allProdList.get(i).getCategory3_num(), 3);
-	           c3.add(category3);
-	        }
-	       
-	      mav.addObject("allProdList", allProdList);
-	      mav.addObject("wishCount",wishCount);
-	      mav.addObject("fileList", fileList);
-	      mav.addObject("c1", c1);
-	      mav.addObject("c2", c2);
-	      mav.addObject("c3", c3);
-	      return mav;
-	   }
-	
-	
 	
 	@RequestMapping("productImg")
 	public ResponseEntity<byte[]> getImg(String fname, int product_num) {
@@ -424,12 +321,6 @@ ArrayList<Review> reviewList = (ArrayList<Review>) review_Service.selectReviewBy
 		}
 		return result;
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	@RequestMapping(value = "/product/product_list")
@@ -510,14 +401,11 @@ ArrayList<Review> reviewList = (ArrayList<Review>) review_Service.selectReviewBy
 			}
 		}
 	}
-	
-	
-	
+
 	
 	// 검색어로 검색
     @RequestMapping(value= "/product/searchKeyword")
     public ModelAndView searchKeywordResult(@RequestParam(value = "user_id") String user_id, @RequestParam(value = "searchKeyword") String searchKeyword) {
-       System.out.println("검색어로 검색 : " + user_id);
       
       ModelAndView mav = new ModelAndView();
       mav.setViewName("/product/product_list");
@@ -530,17 +418,13 @@ ArrayList<Review> reviewList = (ArrayList<Review>) review_Service.selectReviewBy
       	ArrayList<Category> c2 = new ArrayList<Category>(); 
 		ArrayList<Category> c3 = new ArrayList<Category>();
       
-      System.out.println("검색어로 검색 list : " + allProdList);
-      
       if (user_id != "") {
     	  User u = user_Service.checkUserId(user_id);
       
 	       if (u.getUser_type() == 2) {
 	    	  if(allProdList.isEmpty()) {
-	    		  System.out.println("list 비었음");
 	    		  allProdList.add(new Product(0, "", 0, "", 0, 0, 0, "", null, 0, 0));
 	    	  }
-	    	  System.out.println("서치키워드 컨트롤러3333333" + allProdList);
 	    	  mav.setViewName("/admin/productJSON");
 	    	  mav.addObject("allProdList", allProdList);
 	      }
@@ -573,15 +457,10 @@ ArrayList<Review> reviewList = (ArrayList<Review>) review_Service.selectReviewBy
       
       for (int i = 0; i < allProdList.size(); i++) {
          p = allProdList.get(i);
-         System.out.println("검색어로 검색 p : " + p);
          count = wish_Service.countUserIdByProductNum(p.getProduct_num());
       
-         System.out.println("검색어로 검색 count : " + count);
           wishCount.add(count); 
-          System.out.println();
       }
-      System.out.println("검색어로 검색 wishCount : " + wishCount);
-      System.out.println("");
       mav.addObject("allProdList", allProdList);
       mav.addObject("searchKeyword", searchKeyword);
       mav.addObject("wishCount",wishCount);
@@ -592,12 +471,7 @@ ArrayList<Review> reviewList = (ArrayList<Review>) review_Service.selectReviewBy
       return mav;
     }
 
-	
-	
-	
-	
-
-
+    
     // 카테고리로 검색
 	   @RequestMapping(value= "/product/searchCategoryName")
 	   public ModelAndView searchCategoryNameResult(@RequestParam(value = "user_id") String user_id, @RequestParam(value = "categoryName") String categoryName) {
@@ -615,10 +489,8 @@ ArrayList<Review> reviewList = (ArrayList<Review>) review_Service.selectReviewBy
 	      
 		       if (u.getUser_type() == 2) {
 		    	  if(allProdList.isEmpty()) {
-		    		  System.out.println("list 비었음");
 		    		  allProdList.add(new Product(0, "", 0, "", 0, 0, 0, "", null, 0, 0));
 		    	  }
-		    	  System.out.println("서치키워드 컨트롤러3333333" + allProdList);
 		    	  mav.setViewName("/admin/productJSON");
 		    	  mav.addObject("allProdList", allProdList);
 		      }
@@ -661,28 +533,119 @@ ArrayList<Review> reviewList = (ArrayList<Review>) review_Service.selectReviewBy
 	      mav.addObject("c3", c3);
 	      return mav;
 	   }
-	
-	
+	   
+	   
+	   /**
+	    * 가격으로 상품 검색하기
+	    * @param min - 최소가격
+	    * @param max - 최대가격
+	    * @param searchKeyword 검색 키워드
+	    * @param categoryName 카테고리이름
+	    * @return - ModelAndView
+	    */
+	   @RequestMapping(value = "product/selectProductByPrice")
+	   public ModelAndView selectProductByPrice(@RequestParam(value = "user_id") String user_id, @RequestParam(value = "searchKeyword")String searchKeyword, @RequestParam(value = "categoryName")String categoryName, @RequestParam(value = "min")
+	   String min, @RequestParam(value = "max") String max) {
+	      ModelAndView mav = new ModelAndView("/product/product_list");
+	      Product p = null;
+	      int count = 0;
+	       ArrayList<Integer> wishCount = new ArrayList<Integer>();
+	       ArrayList<Product> allProdList = new ArrayList<Product>();
+	       int minNumber;
+	       int maxNumber;
+	       if (min == null || min == "") {
+	    	  min = "0";
+	    	  minNumber = Integer.parseInt(min);
+	       }
+	       
+	       if (max == null || max == "") {
+	    	  //int형의 최댓값
+	    	  max = "2147483647";
+	    	  maxNumber = Integer.parseInt(max);
+	       }
+	       minNumber = Integer.parseInt(min);
+	       maxNumber = Integer.parseInt(max);
+	       
+	        if(categoryName != "") {
+	        	//카테고리 이름으로 검색 후에 가격검색을 한 경우
+	           allProdList = (ArrayList<Product>) product_Service.selectProductByPriceAndCategoryName(categoryName, minNumber, maxNumber);
+	           for (int i = 0; i < allProdList.size(); i++) {
+	              p = allProdList.get(i);
+	              count = wish_Service.countUserIdByProductNum(p.getProduct_num());
+	              wishCount.add(count); 
+	           }
+	           
+	        }else{
+	        	//키워드 검색으로 검색 후에 가격검색을 한 경우 
+	           allProdList = (ArrayList<Product>) product_Service.selectProductByPriceAndName(searchKeyword, minNumber, maxNumber);
+	           for (int i = 0; i < allProdList.size(); i++) {
+	              p = allProdList.get(i);
+	              count = wish_Service.countUserIdByProductNum(p.getProduct_num());
+	              wishCount.add(count); 
+	           }
+	        }
+	       
+	       /* 카테고리 가져오기 */
+	         ArrayList<Category> c1 = new ArrayList<Category>(); 
+	         ArrayList<Category> c2 = new ArrayList<Category>(); 
+	         ArrayList<Category> c3 = new ArrayList<Category>();
+	         
+	         if (user_id != "") {
+	            User u = user_Service.checkUserId(user_id);
+	         
+	             if (u.getUser_type() == 2) {
+	               if(allProdList.isEmpty()) {
+	                  allProdList.add(new Product(0, "", 0, "", 0, 0, 0, "", null, 0, 0));
+	               }
+	               mav.setViewName("/admin/productJSON");
+	               mav.addObject("allProdList", allProdList);
+	            }
+	         }
+	         /* 등록된 이미지 가져오기 */
+	           ArrayList<String> fileList = new ArrayList<String>();
+	           String path = "";
+	        
+	           for (int i = 0; i < allProdList.size(); i++) {
+	              p = allProdList.get(i);
+	              path = basePath + p.getProduct_num() + "\\";
+	              File imgDir = new File(path);
+	              mav.addObject("path" + i, path);
+	              
+	              if (imgDir.exists()) {
+	                 String[] files = imgDir.list();
+	                 fileList.add(files[0]);
+	           }
+	           
+	           Category category1 = admin_Service.selectCategory(allProdList.get(i).getCategory1_num(), 1);
+	           c1.add(category1);
+	           
+	           Category category2 = admin_Service.selectCategory(allProdList.get(i).getCategory2_num(), 2);
+	           c2.add(category2);
+	           
+	           Category category3 = admin_Service.selectCategory(allProdList.get(i).getCategory3_num(), 3);
+	           c3.add(category3);
+	        }
+	       
+	      mav.addObject("allProdList", allProdList);
+	      mav.addObject("wishCount",wishCount);
+	      mav.addObject("fileList", fileList);
+	      mav.addObject("c1", c1);
+	      mav.addObject("c2", c2);
+	      mav.addObject("c3", c3);
+	      return mav;
+	   }
 	
 		// 거래완료
 		@RequestMapping(value="/product/updateResult")
 		public String updateResult(RedirectAttributes redirect, @RequestParam(value="product_num") int product_num) {
-			
-			System.out.println("거래완료 controller==== 상품번호 :" + product_num);
 			
 			Product p  = product_Service.selectProductByNum(product_num);
 			p.setResult(2);
 			
 			product_Service.updateProduct(p);
 			redirect.addAttribute("user_id", p.getUser_id());
-			System.out.println("거래완료 controller==== 회원아이디 :" + p.getUser_id());
 			
 			return "redirect:/user/userProfile";
 		}
-	
-	
-	
-	
-
 	
 }
